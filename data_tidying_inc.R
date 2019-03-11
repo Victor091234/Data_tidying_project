@@ -6,6 +6,7 @@ football <- read_csv("C:/Users/Usuario/Downloads/season-1819_csv.csv")
 View(football)
 #1 cleaning
 
+
 matrix=matrix(nrow=2*nrow(football), ncol=15,)
 colnames(matrix)=c("Team","Round", "GS", "GC", "DG",
                    "YC", "RC", "Corners","Shoots", "FC", "STG", "W", "D", "L", "PPM")
