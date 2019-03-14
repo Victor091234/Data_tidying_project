@@ -42,7 +42,7 @@ ui <- navbarPage("Shiny App",
               plotOutput(outputId = "Points_bar")
               
             )
-            ),
+            )
 
    
 )
