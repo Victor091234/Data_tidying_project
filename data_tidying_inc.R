@@ -1,8 +1,9 @@
-
-
 rm(list=ls())
 library(readr)
-football <- read_csv("C:/Users/Usuario/Downloads/season-1819_csv.csv")
+
+url_2019 <- "https://pkgstore.datahub.io/sports-data/spanish-la-liga/season-1819_csv/data/4152c6cd3f616e0b0f8484e42c093f51/season-1819_csv.csv"
+football <- read.csv(url_2019, sep = "", skip = 2, header=F)
+football <- read_csv("/Users/cynthiabuenomedeiros/Downloads/season-1819_csv.csv")
 View(football)
 #1 cleaning
 
@@ -22,8 +23,8 @@ for ( k in 1:length(i)){
   matrix[j[k]:i[k], c("Team")]=teams
   
 }
-  
- 
+
+
 #Round
 
 for ( k in 1:length(i)){
@@ -157,18 +158,15 @@ matrix$STG=matrix$Shoots/matrix$GS
 matrix[which(matrix$STG==Inf), c("STG")]=NA
 #PPM
 matrix$PPM=(3*matrix$W+1*matrix$D)/matrix$Round
-ggplot(Admission, aes(Admission$Chance.Admit)) + geom_density(aes(group=Admission$Research, colour=Admission$Research, fill=Admission$Research), alpha=0.1)  
+
 library(ggplot2)
 a="Real Madrid"
 b="Sevilla"
-x=matrix[matrix$Team==a, c("Team", "Round", "STG")]
-n=matrix[matrix$Team==b, c("Team", "Round", "STG")]
+x=matrix[matrix$Team=="Sevilla", c("Team", "Round", "Shoots")]
+n=matrix[matrix$Team=="Barcelona", c("Team", "Round", "Shoots")]
 xn=rbind(x,n)
+View(xn)
 ggplot(xn)+aes(x=Round, y=STG)+
   geom_line(aes(group=xn$Team, colour=xn$Team))
 
-#Graficos de series comparando dos equipos que el usuario elija comparando puntos por partido y disparos para hacer un gol.
-
-#Graficos de clusters, el usuario podra elegir los clusters asi como la jornada.
-  
 
