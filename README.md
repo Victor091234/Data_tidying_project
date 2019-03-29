@@ -9,6 +9,6 @@ output: pdf_document
 
 This project aims to analyse and extract useful information from the La Liga dataset. It consists of five different interactive plots created in R, with the app Shiny, that provide statistics about the football championship. Ultimately, the plots aim to make it easier to compare the teams' performances.
 
-The files, named "data_tidying_inc.R" and "Assignment_datatidying.R", can be found on the GitHub repository: \href{https://github.com/Victor091234/Data_tidying_project.git}.
+The files, named "data_tidying_inc.R" and "Assignment_datatidying.R", can be found on the GitHub repository: \href{https://github.com/Victor091234/Data_tidying_project.git }.
 
 
