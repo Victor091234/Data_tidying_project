@@ -1,9 +1,9 @@
 rm(list=ls())
 library(readr)
 
-url_2019 <- "https://pkgstore.datahub.io/sports-data/spanish-la-liga/season-1819_csv/data/4152c6cd3f616e0b0f8484e42c093f51/season-1819_csv.csv"
-football <- read.csv(url_2019, sep = "", skip = 2, header=F)
-football <- read_csv("/Users/cynthiabuenomedeiros/Downloads/season-1819_csv.csv")
+url_2019 <- "https://datahub.io/sports-data/spanish-la-liga/r/season-1819.csv"
+football <- read_csv(url_2019)
+#football <- read_csv("/Users/cynthiabuenomedeiros/Downloads/season-1819_csv.csv")
 View(football)
 #1 cleaning
 
@@ -169,4 +169,51 @@ View(xn)
 ggplot(xn)+aes(x=Round, y=STG)+
   geom_line(aes(group=xn$Team, colour=xn$Team))
 
+library(shiny)
+library(leaflet)
+library(dplyr)
+library(leaflet.extras)
 
+data <- matrix[-c(1:501,520:560),]
+
+data$longitude <- ifelse(data$Team == "Betis", "-5.99", 
+                         ifelse(data$Team == "Girona", "-2.821111", 
+                                ifelse(data$Team == "Barcelona", "-2.183333", 
+                                       ifelse(data$Team=="Celta", "-8.712447", 
+                                              ifelse(data$Team=="Villarreal", "-0.101389",
+                                                     ifelse(data$Team=="Eibar", "-2.466667",
+                                                            ifelse(data$Team=="Real Madrid", "-3.716667",
+                                                                   ifelse(data$Team=="Ath Bilbao", "-2.923611",
+                                                                          ifelse(data$Team=="Valencia", "-0.375",
+                                                                                 ifelse(data$Team=="Getafe","-3.731111", 
+                                                                                        ifelse(data$Team=="Leganes","-3.764444", 
+                                                                                               ifelse(data$Team=="Alaves", "-2.683333", 
+                                                                                                      ifelse(data$Team=="Ath Madrid", "-3.716667",
+                                                                                                             ifelse(data$Team=="Valladolid", "-4.723611", 
+                                                                                                                    ifelse(data$Team=="Espanol", "2.183333",
+                                                                                                                           ifelse(data$Team=="Sevilla","-5.99",
+                                                                                                                                  ifelse(data$Team=="Levante", "-0.375", 
+                                                                                                                                         ifelse(data$Team=="Huesca", "-0.416667", "-1.985556"))))))))))))))))))
+
+data$latitude <- ifelse(data$Team == "Betis", "37.39", 
+                        ifelse(data$Team == "Girona", "41.984444", 
+                               ifelse(data$Team == "Barcelona", "41.383333", 
+                                      ifelse(data$Team=="Celta", "42.231356", 
+                                             ifelse(data$Team=="Villarreal", "39.937778",
+                                                    ifelse(data$Team=="Eibar", "43.183333",
+                                                           ifelse(data$Team=="Real Madrid", "40.383333",
+                                                                  ifelse(data$Team=="Ath Bilbao", "43.256944",
+                                                                         ifelse(data$Team=="Valencia", "39.466667",
+                                                                                ifelse(data$Team=="Getafe","40.304722", 
+                                                                                       ifelse(data$Team=="Leganes","40.328056", 
+                                                                                              ifelse(data$Team=="Alaves", "42.85", 
+                                                                                                     ifelse(data$Team=="Ath Madrid", "40.383333",
+                                                                                                            ifelse(data$Team=="Valladolid", "41.652778", 
+                                                                                                                   ifelse(data$Team=="Espanol", "41.383333",
+                                                                                                                          ifelse(data$Team=="Sevilla","37.39",
+                                                                                                                                 ifelse(data$Team=="Levante", "39.466667", 
+                                                                                                                                        ifelse(data$Team=="Huesca", "42.133333", "43.321389"))))))))))))))))))
+data$longitude = as.numeric(data$longitude)
+data$latitude = as.numeric(data$latitude)
+
+data$depth_type <- ifelse(data$STG <= 9, "shallow", ifelse(data$STG <= 15 | data$STG >9, "intermediate", ifelse(data$STG > 15, "deep", "other")))
